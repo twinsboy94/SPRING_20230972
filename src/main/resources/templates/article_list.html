@@ -18,6 +18,7 @@
                         <th>ID</th>
                         <th>제목</th>
                         <th>내용</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,15 @@
                         <td th:text="${article.id}"></td>
                         <td th:text="${article.title}"></td>
                         <td th:text="${article.content}"></td>
+                        <th>
+                            <!-- 수정 버튼 -->
+                            <a class="btn btn-warning" th:href="@{/article_edit/{id}(id=${article.id})}">수정</a>
+                            <!-- 삭제 버튼 -->
+                            <form th:action="@{/api/article_delete/{id}(id=${article.id})}" method="post" style="display:inline;">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn btn-danger">삭제</button>
+                            </form>
+                        </th>
                     </tr>
                 </tbody>
             </table>
@@ -44,6 +54,6 @@
             </div>
             <button type="submit" class="btn btn-primary">추가</button>
         </form>
-    </div>    
+    </div>
 </body>
 </html>
