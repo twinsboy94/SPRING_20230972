@@ -1,12 +1,14 @@
 package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-
 import com.example.demo.model.domain.Article;
 import com.example.demo.model.service.AddArticleRequest;
 import com.example.demo.model.service.BlogService;
@@ -25,6 +27,13 @@ public class BlogController {
         model.addAttribute("articles", list); // 모델에 추가
         return "article_list"; // .HTML 연결
     }
+
+    @PostMapping("/api/articles") // 게시글 추가를 위한 POST 매핑
+    public String addArticle(@ModelAttribute AddArticleRequest request) {
+        blogService.save(request); // 게시글 저장
+        return "redirect:/article_list"; // .HTML 연결
+    }
+    
 
     @GetMapping("/article_edit/{id}") // 게시판 링크 지정
     public String article_edit(Model model, @PathVariable Long id) {
@@ -49,7 +58,5 @@ public class BlogController {
         blogService.delete(id);
         return "redirect:/article_list";
     }
-
-    
 }  
 

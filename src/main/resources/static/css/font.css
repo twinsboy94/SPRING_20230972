@@ -1,0 +1,65 @@
+@font-face {
+	font-family: 'SUITE';
+	font-weight: 300;
+	src: url('/fonts/SUITE-Light.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'SUITE';
+	font-weight: 400;
+	src: url('/fonts/SUITE-Regular.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'SUITE';
+	font-weight: 500;
+	src: url('/fonts/SUITE-Medium.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'SUITE';
+	font-weight: 600;
+	src: url('/fonts/SUITE-SemiBold.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'SUITE';
+	font-weight: 700;
+	src: url('/fonts/SUITE-Bold.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'SUITE';
+	font-weight: 800;
+	src: url('/fonts/SUITE-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+	font-family: 'SUITE';
+	font-weight: 900;
+	src: url('/fonts/SUITE-Heavy.woff2') format('woff2');
+}
+
+head {
+    font-family: 'SUITE', sans-serif;
+    font-weight: 800;
+}
+
+body {
+    font-family: 'SUITE', sans-serif;
+    font-weight: 400;
+}
+
+/* 제목 태그에 다른 폰트 두께 적용 */
+h1 {
+    font-family: 'SUITE', sans-serif;
+    font-weight: 800; /* Bold */
+}
+h2 {
+    font-family: 'SUITE', sans-serif;
+    font-weight: 600; /* SemiBold */
+}
+h3 {
+    font-family: 'SUITE', sans-serif;
+    font-weight: 500; /* Medium */
+}
+
+/* 문단에 Light 폰트 적용 */
+p {
+    font-family: 'SUITE', sans-serif;
+    font-weight: 400; /* Light */
+}
