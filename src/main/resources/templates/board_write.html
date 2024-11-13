@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 게시판 (new)</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font.css">
+    
+    <style>
+        /* custom-margin 클래스 정의 */
+        .custom-margin {
+            margin-top: 30px; /* 상단 여백 추가 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">블로그 게시판 (new)</h1>
+
+        <!-- 게시글 추가 폼 -->
+    <div class="mt-4">
+        <h2>게시글 추가</h2>
+        <form th:action="@{/api/boards}" method="post" name="content">
+        <div class="form-group">
+            <label for="title">제목:</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="content">내용:</label>
+            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">글 저장하기</button>
+        <input type="hidden" id="user" name="user" value="GUEST">
+        <input type="hidden" id="newdate" name="newdate" value="">
+        <input type="hidden" id="count" name="count" value="0">
+        <input type="hidden" id="likec" name="likec" value="0">
+        </form>
+    </div>
+
+    <script>
+        // JavaScript로 현재 날짜를 설정
+        document.addEventListener("DOMContentLoaded", function() {
+            var newDateInput = document.getElementById('newdate');
+            var currentDate = new Date();
+            var formattedDate = currentDate.getFullYear() + '년 ' 
+                                + (currentDate.getMonth() + 1).toString().padStart(2, '0') + '월 ' 
+                                + currentDate.getDate().toString().padStart(2, '0')+ '일 ';
+            newDateInput.value = formattedDate;
+        });
+    </script>
+</body>
+</html>
