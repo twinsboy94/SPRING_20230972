@@ -6,18 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.example.demo.model.domain.Article;
 import com.example.demo.model.domain.Board;
-
-// @Repository
-// public interface BoardRepository extends JpaRepository<Board, Long>{
-
-//     Board save(Article entity);
-//     // List<Article> findAll();
-// }
+import com.example.demo.model.domain.Member;
 
 @Repository
-public interface BoardRepository extends JpaRepository<Board, Long>{
-    Board save(Article entity);
-    Page<Board> findByTitleContainingIgnoreCase(String title, org.springframework.data.domain.Pageable pageable);
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
+    Member findByEmail(String email);
 }
-
-

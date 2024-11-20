@@ -41,7 +41,6 @@ public class BlogService {
     public Page<Board> searchByKeyword(String keyword, Pageable pageable) {
         return blogRepository.findByTitleContainingIgnoreCase(keyword, pageable);
     } // LIKE 검색 제공(대소문자 무시)
-        
 
         
 
