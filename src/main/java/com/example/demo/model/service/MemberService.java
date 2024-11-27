@@ -48,9 +48,10 @@ public class MemberService {
 
         if (!passwordEncoder.matches(rawPassword, member.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-
         }
 
         return member; //인증 성공 시 회원 객체 반환
     }
+
+    
 }

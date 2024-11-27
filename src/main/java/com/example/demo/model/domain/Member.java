@@ -1,13 +1,12 @@
 package com.example.demo.model.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Builder;
+import lombok.*; // 어노테이션 자동 생성
+import jakarta.persistence.*; // 기존 javax 후속 버전
 
-@Entity
+@Getter // setter는 없음(무분별한 변경 x)
+@Entity // 아래 객체와 DB 테이블을 매핑. JPA가 관리
+@Table(name = "member") // 테이블 이름을 지정. 없는 경우 클래스이름으로 설정
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // 외부 생성자 접근 방지
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 1씩 증가
@@ -40,4 +39,6 @@ public class Member {
         this.mobile = mobile;
         this.address = address;
     }
+
+    
 }

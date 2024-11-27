@@ -23,8 +23,13 @@ import com.example.demo.model.service.BlogService;
 import com.example.demo.model.service.MemberService;
 
 import jakarta.persistence.PostPersist;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.Optional;
+import java.util.UUID;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,10 +57,24 @@ public class MemberController {
     }
 
     @PostMapping("/api/login_check") // 로그인 체크
-    public String checkMembers(@ModelAttribute AddMemberRequest request, Model model) {
+    public String checkMembers(@ModelAttribute AddMemberRequest request, Model model, HttpSession session, HttpServletRequest request2, HttpServletResponse response) {
         try {
+            session = request2.getSession(false);
+            
             Member member = MemberService.loginCheck(request.getEmail(), request.getPassword()); // 패스워드 반환
-            model.addAttribute("member", member);
+            if (session != null) {
+                session.invalidate(); // 기존 세션 무효화
+                Cookie cookie = new Cookie("JSESSIONID", null); // JSESSIONID 초기화
+                cookie.setPath("/");
+                cookie.setMaxAge(0); // 쿠키 삭제 = 0으로 세팅
+                response.addCookie(cookie);
+            }
+            session = request2.getSession(true);
+            String sessionId = UUID.randomUUID().toString(); // 고유 ID 세션 생성
+            String email = request.getEmail(); // 이메일
+            session.setAttribute("userId", sessionId); // 아이디 이름 설정
+            session.setAttribute("email", email); // 이메일 설정
+            model.addAttribute("member", member.getEmail());
             return "redirect:/board_list"; 
         }
         catch (IllegalArgumentException e) {

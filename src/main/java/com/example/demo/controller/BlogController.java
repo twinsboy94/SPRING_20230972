@@ -18,6 +18,9 @@ import com.example.demo.model.domain.Article;
 import com.example.demo.model.domain.Board;
 import com.example.demo.model.service.AddArticleRequest;
 import com.example.demo.model.service.BlogService;
+
+import jakarta.servlet.http.HttpSession;
+
 import java.util.Optional;
 import java.util.List;
 import org.springframework.stereotype.Controller;
@@ -42,7 +45,14 @@ public class BlogController {
     // }
 
     @GetMapping("/board_list") // 새로운 게시판 링크 지정
-    public String board_list(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String keyword) {
+    public String board_list(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String keyword, HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+        String email = (String) session.getAttribute("email");
+        if (userId == null) {
+            return "redirect:/member_login";
+        }
+        System.out.println("세션 userId: " + userId);
+        
         PageRequest pageable = PageRequest.of(page, 10); // 한 페이지의 게시글 수
         Page<Board> list; // Page를 반환
         if (keyword.isEmpty()) {
@@ -55,6 +65,7 @@ public class BlogController {
         model.addAttribute("totalPages", list.getTotalPages()); // 페이지 크기
         model.addAttribute("currentPage", page); // 페이지 번호
         model.addAttribute("keyword", keyword); // 키워드
+        model.addAttribute("email", email);
         return "board_list"; // .HTML 연결
     }
 

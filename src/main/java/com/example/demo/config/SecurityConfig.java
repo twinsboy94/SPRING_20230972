@@ -14,6 +14,7 @@ public class SecurityConfig { // 스프링에서 보안 관리 클래스
     @Bean // 명시적 의존성 주입 : Autowired와 다름
         // 5.7버전 이저 WebSecurityConfigurerAdapter 사용
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            
             // 설정을 비워둠
             return http.build(); // 필터 체인을 통해 보안설정(HttpSecurity)을 반환
         }
