@@ -82,4 +82,22 @@ public class MemberController {
             return "login";
         }
     }
+
+    @GetMapping("/api/logout") // 로그아웃 버튼 동작
+    public String member_logout(Model model, HttpServletRequest request2, HttpServletResponse response) {
+        try {
+            HttpSession session = request2.getSession(false); // 기존 세션 가져오기(존재하지 않으면 null 반환)
+                session.invalidate(); // 기존 세션 무효화
+                Cookie cookie = new Cookie("JSESSIONID", null); // JSESSIONID is the default session cookie name
+                cookie.setPath("/"); // Set the path for the cookie
+                cookie.setMaxAge(0); // Set cookie expiration to 0 (removes the cookie)
+                response.addCookie(cookie); // Add cookie to the response
+                session = request2.getSession(true); // 새로운 세션 생성
+                System.out.println("세션 userId: " + session.getAttribute("userId" )); // 초기화 후 IDE 터미널에 세션 값 출력
+                return "login"; // 로그인 페이지로 리다이렉트
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage()); // 에러 메시지 전달
+            return "login"; // 로그인 실패 시 로그인 페이지로 리다이렉트
+        }
+    }
 }
